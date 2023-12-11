@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
 
+// Author: @janedoe
 contract GamingTournament {
     address public organizer;
     uint256 public totalPrizePool;
