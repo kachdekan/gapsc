@@ -1,28 +1,37 @@
+import { Button } from "@material-tailwind/react";
 import React, { FC } from "react";
 
 interface IProps {
   tier: string;
   title: string;
   perks: string[];
+  sponsorshipAmount: string;
 }
 
-const SponsorshipPackCard: FC<IProps> = ({ tier, title, perks }) => {
+const SponsorshipPackCard: FC<IProps> = ({
+  tier,
+  title,
+  perks,
+  sponsorshipAmount,
+}) => {
   return (
-    <div className='w-[280px] h-[390px] bg-black px-[23px] space-y-[8px] py-[21px] rounded-[25px]'>
+    <div className='w-[280px] h-[390px] bg-black px-[23px] space-y-[12px] py-[21px] rounded-[25px] shadow-[0px_4px_50px_20px_rgba(0,182,85,0.15)]'>
       {/* Tier */}
       <div className='w-full flex items-center justify-center text-white text-[1.5rem] font-[900]'>
         {tier}
       </div>
 
       {/* Details */}
-      <div className="space-y-[12px] border-b-[1px] border-dashed border-[1px]">
+      <div className='h-[194px] space-y-[12px] pb-[12px] border-b-[1px] border-dashed border-b-white'>
         <div className='w-full flex flex-col items-center gap-y-[16px]'>
           {/* Title */}
-          <h5 className='text-white text-[0.87rem] font-[400]'>{title}</h5>
+          <h5 className='w-full flex items-center justify-start text-white text-[0.87rem] text-left font-[400]'>
+            {title}
+          </h5>
 
           {/* Perks */}
           {perks?.map((perk, idx) => (
-            <div key={idx} className='w-full flex-items-center space-x-[6px]'>
+            <div key={idx} className='w-full flex items-center space-x-[6px]'>
               <span>
                 <svg
                   width='16'
@@ -38,17 +47,27 @@ const SponsorshipPackCard: FC<IProps> = ({ tier, title, perks }) => {
                 </svg>
               </span>
               {/* perk */}
-              <p className='text-white font-[400]'>{perk}</p>
+              <p className='text-white text-[0.6rem] font-[400]'>{perk}</p>
             </div>
           ))}
         </div>
-
-        {/* Amount payout */}
-        <div className="space-y-[14px]">
-         {/* Payout */}
-         <div className="flex items-center justify-start text-white text-[21px] font-[700]">
-            $100
-         </div>
+      </div>
+      {/* Amount payout */}
+      <div className='w-full space-y-[14px]'>
+        {/* Payout */}
+        <div className='flex flex-col items-center justify-start gap-[14px]'>
+          <div className='text-white text-[1.3rem] self-start text-left font-[700]'>
+            ${sponsorshipAmount}
+          </div>
+          {/* More Button */}
+          <Button
+            placeholder='More'
+            ripple={true}
+            // onClick={() => push("/games/2")}
+            className='text-white text-[0.87rem] bg-green w-[170px] h-[40px] flex items-center justify-center text-center rounded-[5px]'
+          >
+            Sponsor
+          </Button>
         </div>
       </div>
     </div>
