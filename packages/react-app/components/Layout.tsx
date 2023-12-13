@@ -1,22 +1,26 @@
 import { FC, ReactNode } from "react";
-import Footer from "./Footer";
-import Header from "./Header";
+import BackgroundSvg from "@/public/background-svg.svg";
+import Topbar from "./topbar";
 
 interface Props {
-    children: ReactNode;
+  children: ReactNode;
 }
 const Layout: FC<Props> = ({ children }) => {
-    return (
-        <>
-            <div className="bg-gypsum overflow-hidden flex flex-col min-h-screen">
-                <Header />
-                <div className="py-16 max-w-7xl mx-auto space-y-8 sm:px-6 lg:px-8">
-                    {children}
-                </div>
-                <Footer />
-            </div>
-        </>
-    );
+  return (
+    <div className='relative bg-black min-h-screen w-full max-w-[390px] flex justify-center items-center overflow-hidden'>
+      {/* <Header /> */}
+      <div className='absolute w-full h-full'>
+        <BackgroundSvg />
+      </div>
+      <div className='w-full relative flex flex-col items-center justify-start py-5 px-[7px] z-30'>
+        <div className='fixed top-[25px] left-[16px]'>
+          <Topbar />
+        </div>
+        {children}
+      </div>
+      {/* <Footer /> */}
+    </div>
+  );
 };
 
 export default Layout;

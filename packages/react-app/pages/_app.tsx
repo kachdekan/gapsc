@@ -6,6 +6,7 @@ import type { AppProps } from "next/app";
 import { WagmiConfig, configureChains, createConfig } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
 import Layout from "../components/Layout";
+import { Urbanist } from "next/font/google";
 import "../styles/globals.css";
 
 const projectId = process.env.NEXT_PUBLIC_WC_PROJECT_ID as string; // get one at https://cloud.walletconnect.com/app
@@ -18,11 +19,13 @@ const { chains, publicClient } = configureChains(
 const connectors = celoGroups({
   chains,
   projectId,
-  appName: (typeof document === "object" && document.title) || "Your App Name",
+  appName:
+    (typeof document === "object" && document.title) ||
+    "Games And Players Network",
 });
 
 const appInfo = {
-  appName: "Celo Composer",
+  appName: "Games And Players Network",
 };
 
 const wagmiConfig = createConfig({
@@ -30,13 +33,18 @@ const wagmiConfig = createConfig({
   publicClient: publicClient,
 });
 
+const urbanist = Urbanist({ subsets: ["latin"] });
+
+
 function App({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig config={wagmiConfig}>
       <RainbowKitProvider chains={chains} appInfo={appInfo} coolMode={true}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <div className={urbanist.className}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </div>
       </RainbowKitProvider>
     </WagmiConfig>
   );
