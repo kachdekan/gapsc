@@ -1,7 +1,8 @@
+"use client";
 import { baseApiSlice } from "../api/base-api";
 
-export interface IResponse {
-  success: boolean;
+export interface ITournamentResponse {
+  success: true;
   data: {
     tournaments: {
       id: number;
@@ -21,16 +22,48 @@ export interface IResponse {
       currency_symbol: string;
       created_at: string;
       updated_at: string;
+      players: {
+        id: number;
+        player_id: number;
+        tournament_id: number;
+        ign: string;
+        position: string;
+        created_at: string;
+        updated_at: string;
+      }[];
+      host: {
+        id: number;
+        first_name: string;
+        last_name: string;
+        email: string;
+        email_verified_at: string;
+        wallet_id: string;
+        user_type: string;
+        created_at: string;
+        updated_at: string;
+      };
+      sponsors: {
+        id: number;
+        tournament_id: number;
+        sponsor_id: number;
+        tournament_package_id: number;
+        created_at: string;
+        updated_at: string;
+      }[];
     }[];
   };
 }
 
-export const getAllAccountsApiSlice = baseApiSlice.injectEndpoints({
+interface IPayload {
+  tournamentId: string;
+}
+
+export const getSingleTournamentApiSlice = baseApiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    // Gets tournaments
-    getTournaments: builder.query<IResponse, void>({
-      query: () => ({
-        url: "tournaments",
+    // Gets Single tournament
+    getSingleTournament: builder.query<ITournamentResponse, IPayload>({
+      query: ({ tournamentId }) => ({
+        url: `tournaments/${tournamentId}`,
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -40,5 +73,5 @@ export const getAllAccountsApiSlice = baseApiSlice.injectEndpoints({
   }),
 });
 
-export const { useLazyGetTournamentsQuery, useGetTournamentsQuery } =
-  getAllAccountsApiSlice;
+export const { useLazyGetSingleTournamentQuery, useGetSingleTournamentQuery } =
+  getSingleTournamentApiSlice;

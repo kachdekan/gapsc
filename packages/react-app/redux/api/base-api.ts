@@ -1,3 +1,4 @@
+"use client";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 // Define custom headers
@@ -6,7 +7,7 @@ const headers = new Headers();
 headers.append("Content-Type", "application/json; charset=UTF-8");
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "onegap.network/api",
+  baseUrl: "https://onegap.network/api",
   // credentials: "same-origin",
   // credentials: "include",
   mode: "cors",

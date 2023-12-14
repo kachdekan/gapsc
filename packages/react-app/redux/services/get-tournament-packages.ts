@@ -1,3 +1,4 @@
+"use client"
 import { baseApiSlice } from "../api/base-api";
 
 interface IResponse {

@@ -1,3 +1,4 @@
+"use client";
 import { baseApiSlice } from "../api/base-api";
 
 interface IResponse {
@@ -27,14 +28,14 @@ interface IPayload {
   tournament_package_id: string;
 }
 
-export const getTournamentPackagesApiSlice = baseApiSlice.injectEndpoints({
+export const sponsorTournamentApiSlice = baseApiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    // Gets tournaments
-    getTournamentPackages: builder.mutation<IResponse, IPayload>({
-      query: ({ tournament_id, sponsor_id, tournament_package_id }) => ({
-        url: `tournaments/packages/`,
-        method: "GET",
-        body: {},
+    // Sponsor Tournament
+    sponsorTournament: builder.mutation<IResponse, IPayload>({
+      query: (body) => ({
+        url: `tournaments/sponsor/`,
+        method: "POST",
+        body: body,
         headers: {
           "Content-Type": "application/json",
         },
@@ -43,5 +44,4 @@ export const getTournamentPackagesApiSlice = baseApiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetTournamentPackagesMutation } =
-  getTournamentPackagesApiSlice;
+export const { useSponsorTournamentMutation } = sponsorTournamentApiSlice;

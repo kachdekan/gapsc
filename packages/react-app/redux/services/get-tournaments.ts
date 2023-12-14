@@ -1,6 +1,7 @@
+"use client"
 import { baseApiSlice } from "../api/base-api";
 
-export interface IResponse {
+export interface ITournamentsResponse {
   success: boolean;
   data: {
     tournaments: {
@@ -28,9 +29,9 @@ export interface IResponse {
 export const getAllAccountsApiSlice = baseApiSlice.injectEndpoints({
   endpoints: (builder) => ({
     // Gets tournaments
-    getTournaments: builder.query<IResponse, void>({
+    getTournaments: builder.query<ITournamentsResponse, void>({
       query: () => ({
-        url: "tournaments",
+        url: "/tournaments",
         method: "GET",
         headers: {
           "Content-Type": "application/json",

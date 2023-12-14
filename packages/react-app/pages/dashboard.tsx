@@ -1,11 +1,15 @@
+"use client";
+import React from "react";
 import GameCard from "@/components/game-card";
 import { Button } from "@material-tailwind/react";
 import Image from "next/image";
-import React from "react";
+import { useGetTournamentsQuery } from "@/redux/services/get-tournaments";
 
 const Dashboard = () => {
+  // Get Tournaments API Query
+  const { data, isLoading, isError, isSuccess } = useGetTournamentsQuery();
   return (
-    <div className='w-full h-full flex flex-col justify-center items-start gap-y-[42px]'>
+    <div className='w-full h-full min-h-screen flex flex-col justify-start items-center gap-y-[42px] py-[48px]'>
       {/* Top */}
       <div className='space-y-[16px]'>
         {/* Host Tournament */}
@@ -28,48 +32,26 @@ const Dashboard = () => {
 
       {/* Game Tournaments */}
       <div className='w-full flex justify-between items-center flex-wrap gap-x-[12.8px] gap-y-[18.3px]'>
-        {/* FIFA */}
-        <GameCard
-          flyerImage='/FIFA-game-flyer-sm.png'
-          participants='0'
-          tournamentDate='Jan 12 - Jan 14 2024'
-          tournamentName='EA SPORTS FC 24 BEST OF JANUARY'
-        />
-        {/* COD */}
-        <GameCard
-          flyerImage='/COD-game-flyer-sm.png'
-          tournamentDate='Jan 12 2023'
-          tournamentName='CODM Weekly Brawls'
-          participants='0'
-        />
-        {/* EA FC */}
-        <GameCard
-          flyerImage='/EAFC-game-flyer-sm.png'
-          tournamentDate='Jun 24 - Jun 26 2020'
-          tournamentName='Call of duty:  Warzone by Convexity'
-          participants='0'
-        />
-        {/* Rocket League */}
-        <GameCard
-          flyerImage='/rocket-league-game-flyer-sm.png'
-          tournamentDate='Jun 24 - Jun 26 2020'
-          tournamentName='Rocket League Finals'
-          participants='0'
-        />
-        {/* Killer maid */}
-        <GameCard
-          flyerImage='/killer-maid-game-flyer-sm.png'
-          participants='0'
-          tournamentDate='Jan 20 - Jan 25 2024'
-          tournamentName='Killer maid'
-        />
-        {/* annihilation */}
-        <GameCard
-          flyerImage='/annihilation-game-flyer-sm.png'
-          participants='0'
-          tournamentDate='Feb 1 - Feb 6 2024'
-          tournamentName='Annihilation Finals'
-        />
+        {/* When Loading */}
+        {isLoading && (
+          <div className='w-full flex items-center justify-center text-white text-[1rem] font-[600]'>
+            Loading...
+          </div>
+        )}
+
+        {/* When There is Data */}
+        {isSuccess &&
+          !isLoading &&
+          data?.data?.tournaments?.map((tournament, idx) => (
+            <GameCard key={idx} tornamentProps={tournament} />
+          ))}
+
+        {/* When An Error Occurs */}
+        {!isLoading && isError && (
+          <div className='w-full flex items-center justify-center text-white text-[1rem] font-[600]'>
+            Could not fetch Available Tournaments
+          </div>
+        )}
       </div>
     </div>
   );
