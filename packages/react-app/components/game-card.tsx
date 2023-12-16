@@ -52,12 +52,7 @@ const GameCard: FC<IProps> = ({
   return (
     <div className='w-[181px] min-h-[183px] h-fit bg-black flex flex-col space-y-[7px] rounded-[9px] shadow-cardShadow'>
       {/* Game Flyer */}
-      <Image
-        src='/FIFA-game-flyer-sm.png'
-        width={181}
-        height={100}
-        alt='game flyer'
-      />
+      <Image src={`${banner}`} width={181} height={100} alt='game flyer' />
 
       {/* Game Info */}
       <div className='space-y-[18px] px-[13px]'>

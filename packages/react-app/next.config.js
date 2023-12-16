@@ -5,6 +5,16 @@ const nextConfig = {
   env: {
     NEXT_PUBLIC_WC_PROJECT_ID: "a502cc611f5435a4e7d8c9cd6ecf890f",
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "rrinstri.sirv.com",
+        port: "",
+        // pathname: "/account123/**",
+      },
+    ],
+  },
   webpack: (config) => {
     (config.resolve.fallback = {
       fs: false,

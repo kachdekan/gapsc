@@ -209,7 +209,10 @@ export const transferCUSD = async ({
 
     // Retrieve the contract interface from the deployed contract address
     const CUSDContract = new Contract(GAP_CONTRACT_ADDRESS, abi, signer);
-    let txn = await CUSDContract.transfer(address, parseEther("0.1"));
+    let txn = await signer.sendTransaction({
+      to: address,
+      value: parseEther("0.1"),
+    });
     let receipt = await txn.wait();
   }
 };

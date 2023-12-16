@@ -26,6 +26,7 @@ const Dashboard = () => {
           src='/dashboard-hero-img.png'
           width={360}
           height={141.73}
+          priority
           alt='hero-img'
         />
       </div>

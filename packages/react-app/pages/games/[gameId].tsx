@@ -6,6 +6,7 @@ import { Button } from "@material-tailwind/react";
 import { useGetSingleTournamentQuery } from "@/redux/services/get-tournament";
 import { useAccount } from "wagmi";
 import { transferCUSD } from "@/utils/transactions";
+import BackIcon from "@/components/Back-icon";
 
 enum fundedStatus {
   funded = "Funded",
@@ -19,7 +20,8 @@ const SponsorLogos = [
 ];
 
 const Game = () => {
-  const { push, query } = useRouter();
+  const { push, query, back } = useRouter();
+
   // Holds User Address accessed from wagmi
   const [userAddress, setUserAddress] = useState<string>("");
 
@@ -27,12 +29,14 @@ const Game = () => {
   const { address, isConnected } = useAccount();
 
   // Get Game ID from Query
-  const { id } = query;
+  const { gameId } = query;
 
   // Get Tournament API Query
   const { data, isLoading, isError, isSuccess } = useGetSingleTournamentQuery({
-    tournamentId: `${id}`,
+    tournamentId: `${gameId}`,
   });
+
+  console.log("TOURNAMENT DATA: ", data);
 
   // Generate Player ID. This will be gotten from the logged In Player in the main version
   const playerId = Math.floor(Math.random() * 10) + 1;
@@ -46,7 +50,7 @@ const Game = () => {
   const handleJoinTournament = async () => {
     await transferCUSD({ userAddress: userAddress })
       .then(() => {
-        push(`/games/input-IGN?tournament_id=${id}&player_id=${playerId}`);
+        push(`/games/input-IGN?tournament_id=${gameId}&player_id=${playerId}`);
       })
       .catch(() => {
         alert("Error");
@@ -54,7 +58,19 @@ const Game = () => {
   };
 
   return (
-    <>
+    <div className='flex flex-col space-y-[10px]'>
+      {/* Go Back Button */}
+      <button className='flex items-center justify-start pl-[10px]'>
+        <span
+          className='flex items-center space-x-[4px] text-[0.85rem] text-white font-bold'
+          onClick={() => back()}
+        >
+          <BackIcon />
+          <p>Back</p>
+        </span>
+      </button>
+      {/* Go Back Button End */}
+
       {/* When data is available */}
       {isSuccess && !isLoading && (
         <div className='w-[360px] h-[590px] bg-black px-[20px] py-[40px] space-y-[80px]'>
@@ -66,7 +82,7 @@ const Game = () => {
                 {data?.data?.tournaments?.[0]?.title}
               </div>
               {/* Tournament Funded status*/}
-              <div className='text-white font-sans font-[800] text-[0.55rem]'>
+              <div className='text-white font-sans font-[800] text-[0.55rem] whitespace-nowrap'>
                 {data?.data?.tournaments?.[0]?.is_funded === 0
                   ? fundedStatus.notFunded
                   : fundedStatus.funded}
@@ -113,7 +129,7 @@ const Game = () => {
               {/* Join Tournament Button */}
               {data?.data?.tournaments?.[0]?.is_funded === 1 ? (
                 <Button
-                  placeholder='Sponsor Tournament'
+                  placeholder='Join Tournament'
                   ripple={true}
                   onClick={() => handleJoinTournament()}
                   className='text-white text-[0.875rem] bg-red w-full h-[40px] rounded-[5px]'
@@ -123,16 +139,16 @@ const Game = () => {
                 </Button>
               ) : null}
 
-              {/* Sponsor Tournament Button, Only show button if User is Connected */}
-              {isConnected ? (
-                <Button
-                  placeholder='Sponsor Tournament'
-                  ripple={true}
-                  className='text-white text-[0.875rem] bg-green w-full h-[40px] rounded-[5px]'
-                >
-                  Sponsor Tournament
-                </Button>
-              ) : null}
+              {/* Sponsor Tournament Button */}
+              {/* {isConnected ? ( */}
+              <Button
+                placeholder='Sponsor Tournament'
+                ripple={true}
+                className='text-white text-[0.875rem] bg-green w-full h-[40px] rounded-[5px]'
+              >
+                Sponsor Tournament
+              </Button>
+              {/* ) : null} */}
             </div>
           </div>
 
@@ -175,13 +191,15 @@ const Game = () => {
             </div>
             {/* Location */}
             <div className='w-full flex items-center justify-center space-x-[8px]'>
-              <Image
-                src='/location-icon.png'
-                width={26.6}
-                height={26.6}
-                alt='Participants Icon'
-              />
-              <h5 className='text-white text-[0.75rem] font-sans font-[900]'>
+              <div className=''>
+                <Image
+                  src='/location-icon.png'
+                  width={26.6}
+                  height={26.6}
+                  alt='Participants Icon'
+                />
+              </div>
+              <h5 className='text-white text-[0.75rem] text-end font-sans font-[900]'>
                 {data?.data?.tournaments?.[0]?.location ??
                   "Wuse Zone 6 Convexity"}
               </h5>
@@ -203,7 +221,7 @@ const Game = () => {
           Could not fetch tournament data
         </div>
       )}
-    </>
+    </div>
   );
 };
 
