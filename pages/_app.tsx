@@ -1,8 +1,8 @@
+import type { AppProps } from "next/app";
 import { Alfajores, Celo } from "@celo/rainbowkit-celo/chains";
 import celoGroups from "@celo/rainbowkit-celo/lists";
 import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
-import type { AppProps } from "next/app";
 import { WagmiConfig, configureChains, createConfig } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
 import Layout from "../components/Layout";
@@ -22,7 +22,7 @@ const { chains, publicClient } = configureChains(
 
 const connectors = celoGroups({
   chains,
-  projectId: "a502cc611f5435a4e7d8c9cd6ecf890f",
+  projectId: "cdbb7708b4fb79aa5ca8c42149594de7",
 });
 
 const appInfo = {
@@ -34,11 +34,11 @@ const wagmiConfig = createConfig({
   publicClient: publicClient,
 });
 
-// const urbanist = Urbanist({
-//   subsets: ["latin"],
-//   display: "swap",
-//   adjustFontFallback: false,
-// });
+const urbanist = Urbanist({
+  subsets: ["latin"],
+  display: "swap",
+  adjustFontFallback: false,
+});
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -47,11 +47,11 @@ function App({ Component, pageProps }: AppProps) {
         <RainbowKitProvider chains={chains} appInfo={appInfo} coolMode={true}>
           <Provider store={store}>
             <ThemeProvider>
-              {/* <div className={urbanist.className}> */}
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
-              {/* </div> */}
+              <div className={urbanist.className}>
+                <Layout>
+                  <Component {...pageProps} />
+                </Layout>
+              </div>
             </ThemeProvider>
           </Provider>
         </RainbowKitProvider>
