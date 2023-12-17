@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { baseApiSlice } from "../api/base-api";
 
 interface IResponse {
@@ -41,5 +41,7 @@ export const getTournamentPackagesApiSlice = baseApiSlice.injectEndpoints({
   }),
 });
 
-export const { useLazyGetTournamentPackagesQuery, useGetTournamentPackagesQuery } =
-  getTournamentPackagesApiSlice;
+export const {
+  useLazyGetTournamentPackagesQuery,
+  useGetTournamentPackagesQuery,
+} = getTournamentPackagesApiSlice;

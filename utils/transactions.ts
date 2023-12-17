@@ -203,6 +203,8 @@ export const transferCUSD = async ({
   userAddress,
 }: Props) => {
   if (window.ethereum) {
+
+    
     // Get Connected accounts, if not connected request connection.
     const provider = new providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner(userAddress);
