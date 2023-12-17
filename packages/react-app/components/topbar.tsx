@@ -20,7 +20,7 @@ const Topbar = () => {
       setHideConnectBtn(true);
       connect();
     }
-  }, []);
+  }, [connect]);
 
   return (
     <div className=' flex items-center justify-between'>
