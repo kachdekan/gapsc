@@ -20,7 +20,6 @@ const Topbar = () => {
       setHideConnectBtn(true);
       connect();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

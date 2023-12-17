@@ -14,7 +14,7 @@ const Layout: FC<Props> = ({ children }) => {
       </div>
       <div className='w-full relative flex flex-col items-center justify-start py-5 px-[7px] z-30'>
         <div className='max-w-[760px] fixed top-[25px] left-[16px] right-[16px]'>
-          <Topbar />
+          {/* <Topbar /> */}
         </div>
 
         <main className="mt-[35px]">{children}</main>

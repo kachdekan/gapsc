@@ -34,7 +34,7 @@ const appInfo = {
 };
 
 const wagmiConfig = createConfig({
-  connectors,
+  connectors: connectors,
   publicClient: publicClient,
 });
 
