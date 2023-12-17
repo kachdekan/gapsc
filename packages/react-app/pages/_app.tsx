@@ -46,17 +46,19 @@ const urbanist = Urbanist({
 
 function App({ Component, pageProps }: AppProps) {
   return (
-    <RainbowKitProvider chains={chains} appInfo={appInfo} coolMode={true}>
+    <>
       <WagmiConfig config={wagmiConfig}>
-        <Provider store={store}>
-          <div className={urbanist.className}>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </div>
-        </Provider>
+        <RainbowKitProvider chains={chains} appInfo={appInfo} coolMode={true}>
+          <Provider store={store}>
+            <div className={urbanist.className}>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </div>
+          </Provider>
+        </RainbowKitProvider>
       </WagmiConfig>
-    </RainbowKitProvider>
+    </>
   );
 }
 
