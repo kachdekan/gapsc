@@ -34,11 +34,11 @@ const wagmiConfig = createConfig({
   publicClient: publicClient,
 });
 
-const urbanist = Urbanist({
-  subsets: ["latin"],
-  display: "swap",
-  adjustFontFallback: false,
-});
+// const urbanist = Urbanist({
+//   subsets: ["latin"],
+//   display: "swap",
+//   adjustFontFallback: false,
+// });
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -47,11 +47,11 @@ function App({ Component, pageProps }: AppProps) {
         <RainbowKitProvider chains={chains} appInfo={appInfo} coolMode={true}>
           <Provider store={store}>
             <ThemeProvider>
-              <div className={urbanist.className}>
-                <Layout>
-                  <Component {...pageProps} />
-                </Layout>
-              </div>
+              {/* <div className={urbanist.className}> */}
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+              {/* </div> */}
             </ThemeProvider>
           </Provider>
         </RainbowKitProvider>
