@@ -16,7 +16,7 @@ const Topbar = () => {
 
   // Connect Minipay Wallet automatically and hide connect wallet button when app is used on minipay
   useEffect(() => {
-    if (window.ethereum.isMiniPay ? true : false) {
+    if (window.ethereum && window.ethereum.isMiniPay ? true : undefined) {
       setHideConnectBtn(true);
       connect();
     }
