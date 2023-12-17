@@ -23,7 +23,9 @@ export default function Home() {
         placeholder='Joining Tournament'
         ripple={true}
         className='text-white bg-red w-[279px] h-[40px] rounded-[5px]'
-        onClick={() => push("/dashboard")}
+        onClick={() => {
+          push("/dashboard");
+        }}
       >
         Join a Tournament
       </Button>

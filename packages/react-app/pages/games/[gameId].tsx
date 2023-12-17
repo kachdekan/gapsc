@@ -63,7 +63,7 @@ const Game = () => {
       <button className='flex items-center justify-start pl-[10px]'>
         <span
           className='flex items-center space-x-[4px] text-[0.85rem] text-white font-bold'
-          onClick={() => back()}
+          onClick={() => {back()}}
         >
           <BackIcon />
           <p>Back</p>
@@ -131,7 +131,7 @@ const Game = () => {
                 <Button
                   placeholder='Join Tournament'
                   ripple={true}
-                  onClick={() => handleJoinTournament()}
+                  onClick={() => {handleJoinTournament()}}
                   className='text-white text-[0.875rem] bg-red w-full h-[40px] rounded-[5px]'
                 >
                   Join for {data?.data?.tournaments?.[0]?.currency_symbol}

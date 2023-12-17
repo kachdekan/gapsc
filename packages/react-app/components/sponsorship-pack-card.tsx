@@ -63,7 +63,7 @@ const SponsorshipPackCard: FC<IProps> = ({
           <Button
             placeholder='More'
             ripple={true}
-            // onClick={() => push("/games/2")}
+            // onClick={() => {push("/games/2")}}
             className='text-white text-[0.87rem] bg-green w-[170px] h-[40px] flex items-center justify-center text-center rounded-[5px]'
           >
             Sponsor

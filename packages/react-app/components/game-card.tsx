@@ -79,7 +79,7 @@ const GameCard: FC<IProps> = ({
           <Button
             placeholder='More'
             ripple={true}
-            onClick={() => push(`/games/${id}`)}
+            onClick={() => {push(`/games/${id}`)}}
             className='text-white text-[0.5rem] bg-red w-fit h-fit flex items-center gap-[5.5px] !py-[5.5px] !px-[8.25px] rounded-[5px]'
           >
             More{" "}
