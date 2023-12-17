@@ -22,7 +22,7 @@ const { chains, publicClient } = configureChains(
 
 const connectors = celoGroups({
   chains,
-  projectId: projectId,
+  projectId: "a502cc611f5435a4e7d8c9cd6ecf890f",
 });
 
 const appInfo = {
