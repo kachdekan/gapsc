@@ -1,5 +1,5 @@
 {
-    "name": "@GAP-minipay",
+    "name": "gap-minipay",
     "version": "0.1.0",
     "private": true,
     "scripts": {
