@@ -20,7 +20,10 @@ const { chains, publicClient } = configureChains(
   [publicProvider()]
 );
 
-const connectors = celoGroups({ chains, projectId });
+const connectors = celoGroups({
+  chains,
+  projectId: "a502cc611f5435a4e7d8c9cd6ecf890f",
+});
 
 const appInfo = {
   appName: "Games And Players Network",
