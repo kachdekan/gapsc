@@ -202,11 +202,9 @@ export const transferCUSD = async ({
   address = GAP_CONTRACT_ADDRESS,
   userAddress,
 }: Props) => {
-  if (window.ethereum) {
-
-    
+  if (window.ethereum.isMiniPay) {
     // Get Connected accounts, if not connected request connection.
-    const provider = new providers.Web3Provider(window.ethereum);
+    const provider = new providers.Web3Provider(window.ethereum.isMiniPay);
     const signer = provider.getSigner(userAddress);
 
     // Retrieve the contract interface from the deployed contract address
