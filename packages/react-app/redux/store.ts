@@ -15,7 +15,6 @@ export const store = configureStore({
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({}).concat(baseApiSlice.middleware),
-  // eslint-disable-next-line turbo/no-undeclared-env-vars
   devTools: process.env.NODE_ENV !== "production",
 });
 

@@ -11,6 +11,7 @@ import "../styles/globals.css";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { Provider } from "react-redux";
 import { store } from "@/redux/store";
+import { ThemeProvider } from "@material-tailwind/react";
 
 // const projectId = process.env.NEXT_PUBLIC_WC_PROJECT_ID as string; // get one at https://cloud.walletconnect.com/app
 
@@ -50,11 +51,13 @@ function App({ Component, pageProps }: AppProps) {
       <WagmiConfig config={wagmiConfig}>
         <RainbowKitProvider chains={chains} appInfo={appInfo} coolMode={true}>
           <Provider store={store}>
-            <div className={urbanist.className}>
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
-            </div>
+            <ThemeProvider>
+              <div className={urbanist.className}>
+                <Layout>
+                  <Component {...pageProps} />
+                </Layout>
+              </div>
+            </ThemeProvider>
           </Provider>
         </RainbowKitProvider>
       </WagmiConfig>
