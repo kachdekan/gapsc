@@ -46,6 +46,7 @@ const InputIGN = () => {
         type='text'
         placeholder='Input IGN'
         onChange={(e) => handleInputChange(e)}
+        name='IGN'
         required
         className='bg-transparent w-full text-center text-white text-[0.87] font-[700] px-[12px] py-[12px] border-[1px] border-red rounded-[5px]'
       />

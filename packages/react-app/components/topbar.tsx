@@ -20,7 +20,8 @@ const Topbar = () => {
       setHideConnectBtn(true);
       connect();
     }
-  }, [connect]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className=' flex items-center justify-between'>

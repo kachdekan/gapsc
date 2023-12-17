@@ -1,4 +1,4 @@
-import { useEffect, useState, FC, ReactNode } from "react";
+import { FC, ReactNode } from "react";
 import BackgroundSvg from "@/public/background-svg.svg";
 import Topbar from "./topbar";
 
@@ -9,7 +9,6 @@ const Layout: FC<Props> = ({ children }) => {
   
   return (
     <div className='relative bg-black min-h-screen w-full max-w-[760px] flex justify-center items-center overflow-hidden'>
-      {/* <Header /> */}
       <div className='absolute w-full h-full'>
         <BackgroundSvg />
       </div>
