@@ -13,7 +13,7 @@ import { store } from "@/redux/store";
 import { ThemeProvider } from "@material-tailwind/react";
 import "../styles/globals.css";
 
-const projectId = process.env.NEXT_PUBLIC_WC_PROJECT_ID!;
+const projectId = process.env.NEXT_PUBLIC_WC_PROJECT_ID as string;
 
 const { chains, publicClient } = configureChains(
   [Celo, Alfajores],
@@ -22,7 +22,7 @@ const { chains, publicClient } = configureChains(
 
 const connectors = celoGroups({
   chains,
-  projectId: "a502cc611f5435a4e7d8c9cd6ecf890f",
+  projectId: projectId,
 });
 
 const appInfo = {
@@ -30,7 +30,7 @@ const appInfo = {
 };
 
 const wagmiConfig = createConfig({
-  connectors: connectors,
+  connectors,
   publicClient: publicClient,
 });
 

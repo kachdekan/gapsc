@@ -16,11 +16,12 @@ const Topbar = () => {
 
   // Connect Minipay Wallet automatically and hide connect wallet button when app is used on minipay
   useEffect(() => {
-    if (window.ethereum && window.ethereum.isMiniPay ? true : undefined) {
+    if (window.ethereum && window.ethereum.isMiniPay) {
       setHideConnectBtn(true);
       connect();
     }
-  }, [connect]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className=' flex items-center justify-between'>
