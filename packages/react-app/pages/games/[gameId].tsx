@@ -42,8 +42,8 @@ const Game = () => {
   const playerId = Math.floor(Math.random() * 10) + 1;
 
   useEffect(() => {
-    if (isConnected && address) {
-      setUserAddress(address);
+    if (isConnected && address ? true : false) {
+      setUserAddress(address!);
     }
   }, [address, isConnected]);
 
@@ -63,7 +63,9 @@ const Game = () => {
       <button className='flex items-center justify-start pl-[10px]'>
         <span
           className='flex items-center space-x-[4px] text-[0.85rem] text-white font-bold'
-          onClick={() => {back()}}
+          onClick={() => {
+            back();
+          }}
         >
           <BackIcon />
           <p>Back</p>
@@ -72,7 +74,7 @@ const Game = () => {
       {/* Go Back Button End */}
 
       {/* When data is available */}
-      {isSuccess && !isLoading && (
+      {isSuccess && !isLoading ? (
         <div className='w-[360px] h-[590px] bg-black px-[20px] py-[40px] space-y-[80px]'>
           <div className='w-full space-y-[20px]'>
             {/* Header */}
@@ -131,7 +133,9 @@ const Game = () => {
                 <Button
                   placeholder='Join Tournament'
                   ripple={true}
-                  onClick={() => {handleJoinTournament()}}
+                  onClick={() => {
+                    handleJoinTournament();
+                  }}
                   className='text-white text-[0.875rem] bg-red w-full h-[40px] rounded-[5px]'
                 >
                   Join for {data?.data?.tournaments?.[0]?.currency_symbol}
@@ -206,20 +210,26 @@ const Game = () => {
             </div>
           </div>
         </div>
+      ) : (
+        false
       )}
 
       {/* When Loading Data */}
-      {isLoading && !isSuccess && !isError && (
+      {isLoading && !isSuccess && !isError ? (
         <div className='w-[360px] h-[590px] bg-black flex items-center justify-center px-[20px] py-[40px] space-y-[80px] text-[0.8rem]'>
           Loading...
         </div>
+      ) : (
+        false
       )}
 
       {/* When Error is encoutered */}
-      {isError && !isSuccess && !isLoading && (
+      {isError && !isSuccess && !isLoading ? (
         <div className='w-[360px] h-[590px] bg-black flex items-center justify-center px-[20px] py-[40px] space-y-[80px] text-[0.8rem]'>
           Could not fetch tournament data
         </div>
+      ) : (
+        false
       )}
     </div>
   );

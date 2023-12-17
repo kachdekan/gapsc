@@ -11,7 +11,6 @@ const nextConfig = {
         protocol: "https",
         hostname: "rrinstri.sirv.com",
         port: "",
-        // pathname: "/account123/**",
       },
     ],
   },

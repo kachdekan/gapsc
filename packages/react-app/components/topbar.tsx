@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useConnect } from "wagmi";
@@ -16,7 +16,7 @@ const Topbar = () => {
 
   // Connect Minipay Wallet automatically and hide connect wallet button when app is used on minipay
   useEffect(() => {
-    if (window.ethereum && window.ethereum.isMiniPay) {
+    if (window.ethereum && window.ethereum.isMiniPay ? true : false) {
       setHideConnectBtn(true);
       connect();
     }
@@ -30,7 +30,7 @@ const Topbar = () => {
       </div>
 
       {/* Connect Wallet */}
-      {!hideConnectBtn && <ConnectButton />}
+      {!hideConnectBtn ? <ConnectButton /> : null}
     </div>
   );
 };

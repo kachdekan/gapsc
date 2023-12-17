@@ -13,22 +13,12 @@ import { Provider } from "react-redux";
 import { store } from "@/redux/store";
 import { ThemeProvider } from "@material-tailwind/react";
 
-// const projectId = process.env.NEXT_PUBLIC_WC_PROJECT_ID as string; // get one at https://cloud.walletconnect.com/app
-
 const { chains, publicClient } = configureChains(
   [Celo, Alfajores],
   [publicProvider()]
 );
 
 const connectors = [new InjectedConnector({ chains })];
-
-// const connectors = celoGroups({
-//   chains,
-//   projectId,
-//   appName:
-//     (typeof document === "object" && document.title) ||
-//     "Games And Players Network",
-// });
 
 const appInfo = {
   appName: "Games And Players Network",

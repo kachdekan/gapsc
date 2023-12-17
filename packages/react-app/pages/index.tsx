@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@material-tailwind/react";
 import { useAccount } from "wagmi";
 import { useRouter } from "next/navigation";
@@ -11,8 +11,8 @@ export default function Home() {
   const { address, isConnected } = useAccount();
 
   useEffect(() => {
-    if (isConnected && address) {
-      setUserAddress(address);
+    if (isConnected && address ? true : false) {
+      setUserAddress(address!);
     }
   }, [address, isConnected]);
 

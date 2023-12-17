@@ -34,25 +34,25 @@ const Dashboard = () => {
       {/* Game Tournaments */}
       <div className='w-full flex justify-between items-center flex-wrap gap-x-[12.8px] gap-y-[18.3px]'>
         {/* When Loading */}
-        {isLoading && (
+        {isLoading ? (
           <div className='w-full flex items-center justify-center text-white text-[1rem] font-[600]'>
             Loading...
           </div>
-        )}
+        ) : null}
 
         {/* When There is Data */}
-        {isSuccess &&
-          !isLoading &&
-          data?.data?.tournaments?.map((tournament, idx) => (
-            <GameCard key={idx} tornamentProps={tournament} />
-          ))}
+        {isSuccess && !isLoading
+          ? data?.data?.tournaments?.map((tournament, idx) => (
+              <GameCard key={idx} tornamentProps={tournament} />
+            ))
+          : null}
 
         {/* When An Error Occurs */}
-        {!isLoading && isError && (
+        {!isLoading && isError ? (
           <div className='w-full flex items-center justify-center text-white text-[1rem] font-[600]'>
             Could not fetch Available Tournaments
           </div>
-        )}
+        ) : null}
       </div>
     </div>
   );

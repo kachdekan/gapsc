@@ -6,7 +6,6 @@ interface Props {
   children: ReactNode;
 }
 const Layout: FC<Props> = ({ children }) => {
-  
   return (
     <div className='relative bg-black min-h-screen w-full max-w-[760px] flex justify-center items-center overflow-hidden'>
       <div className='absolute w-full h-full'>
@@ -19,7 +18,6 @@ const Layout: FC<Props> = ({ children }) => {
 
         <main className="mt-[35px]">{children}</main>
       </div>
-      {/* <Footer /> */}
     </div>
   );
 };
