@@ -210,8 +210,7 @@ export const transferCUSD = async ({
     const provider = new BrowserProvider(
       typeof window !== undefined ? window.ethereum : undefined
     );
-    const signer = await provider;
-          .getSigner(userAddress)
+    const signer = await provider.getSigner(userAddress)
           .then((response) => {
             return response;
           })
