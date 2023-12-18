@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import { useConnect } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";

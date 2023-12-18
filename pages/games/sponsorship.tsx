@@ -1,5 +1,19 @@
+"use client"
 import React from "react";
 import SponsorshipPackCard from "@/components/sponsorship-pack-card";
+
+import { ErrorBoundary } from "react-error-boundary";
+
+function Fallback({ error, resetErrorBoundary }: any) {
+  // Call resetErrorBoundary() to reset the error boundary and retry the render.
+
+  return (
+    <div role='alert'>
+      <p>Something went wrong:</p>
+      <pre style={{ color: "red" }}>{error.message}</pre>
+    </div>
+  );
+}
 
 const bronzeSponsorshipPerks = [
   "Social media mentions/tags",
@@ -21,6 +35,12 @@ const goldSponsorshipPerks = [
 
 const SponsorshipPack = () => {
   return (
+        <ErrorBoundary
+      FallbackComponent={Fallback}
+      onReset={(details) => {
+        // Reset the state of your app so the error doesn't happen again
+      }}
+    >
     <div className='w-full flex flex-col items-center gap-y-[32px] pt-[80px] pb-[40px]'>
       <h5 className='text-white text-base font-[600]'>Choose a Subscription</h5>
       {/* Sponsorship packs */}
@@ -48,6 +68,7 @@ const SponsorshipPack = () => {
         />
       </div>
     </div>
+    </ErrorBoundary>
   );
 };
 

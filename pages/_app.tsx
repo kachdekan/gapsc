@@ -7,7 +7,7 @@ import { WagmiConfig, configureChains, createConfig } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
 import Layout from "../components/Layout";
 import { Urbanist } from "next/font/google";
-import { InjectedConnector } from "wagmi/connectors/injected";
+// import { InjectedConnector } from "wagmi/connectors/injected";
 import { Provider } from "react-redux";
 import { store } from "@/redux/store";
 import { ThemeProvider } from "@material-tailwind/react";
@@ -42,21 +42,19 @@ const urbanist = Urbanist({
 
 function App({ Component, pageProps }: AppProps) {
   return (
-    <>
-      <WagmiConfig config={wagmiConfig}>
-        <RainbowKitProvider chains={chains} appInfo={appInfo} coolMode={true}>
-          <Provider store={store}>
-            <ThemeProvider>
-              <div className={urbanist.className}>
-                <Layout>
-                  <Component {...pageProps} />
-                </Layout>
-              </div>
-            </ThemeProvider>
-          </Provider>
-        </RainbowKitProvider>
-      </WagmiConfig>
-    </>
+    <WagmiConfig config={wagmiConfig}>
+      <RainbowKitProvider chains={chains} appInfo={appInfo} coolMode={true}>
+        <Provider store={store}>
+          <ThemeProvider>
+            <div className={urbanist.className}>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </div>
+          </ThemeProvider>
+        </Provider>
+      </RainbowKitProvider>
+    </WagmiConfig>
   );
 }
 

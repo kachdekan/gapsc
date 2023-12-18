@@ -1,5 +1,6 @@
-import { Button } from '@material-tailwind/react';
+"use client"
 import React from 'react'
+import { Button } from '@material-tailwind/react';
 
 const RegistrationSuccessful = () => {
   return (

@@ -1,5 +1,4 @@
-import { Contract, providers } from "ethers";
-import { parseEther } from "ethers/lib/utils";
+import { ethers, Contract, BrowserProvider, parseEther } from "ethers";
 
 const GAP_CONTRACT_ADDRESS = "0x6c6fB8a6eD54f73077c96a8E8B80F220D49fe860";
 
@@ -208,20 +207,52 @@ export const transferCUSD = async ({
       : undefined
   ) {
     // Get Connected accounts, if not connected request connection.
-    const provider = new providers.Web3Provider(
+    const provider = new BrowserProvider(
       typeof window !== undefined ? window.ethereum : undefined
     );
     const signer = provider.getSigner(userAddress);
 
     // Retrieve the contract interface from the deployed contract address
     const CUSDContract = new Contract(GAP_CONTRACT_ADDRESS, abi, signer);
-    let txn = await signer.sendTransaction({
+    let txn = await CUSDContract.transfer({
       to: address,
       value: parseEther("0.1"),
     });
     let receipt = await txn.wait();
   }
 };
+
+// export const transferCUSD = async (userAddress: string, amount: string) => {
+//   if (window.ethereum) {
+//     console.log(parseEther(amount));
+//     const provider = new BrowserProvider(window.ethereum);
+//     const signer = await provider
+//       .getSigner(userAddress)
+//       .then((response) => {
+//         return response;
+//       })
+//       .catch((error) => {
+//         console.log("signer", error);
+//         return error;
+//       });
+
+//     let abi = ["function transfer(address to, uint256 value)"];
+
+//     let CUSDContract = new Contract(CUSD_ADDRESS, abi, signer);
+//     let txn = await CUSDContract.transfer(
+//       process.env.NEXT_PUBLIC_MW,
+//       parseEther(amount)
+//     )
+//       .then((response) => {
+//         return response;
+//       })
+//       .catch((error) => {
+//         return error;
+//       });
+//     let receipt = await txn;
+//     return receipt;
+//   }
+// };
 
 declare global {
   interface Window {

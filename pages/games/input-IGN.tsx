@@ -1,7 +1,21 @@
+"use client"
 import React, { ChangeEvent, useState } from "react";
 import { useJoinTournamentMutation } from "@/redux/services/join-tournament";
 import { Button } from "@material-tailwind/react";
 import { useRouter } from "next/router";
+
+import { ErrorBoundary } from "react-error-boundary";
+
+function Fallback({ error, resetErrorBoundary }: any) {
+  // Call resetErrorBoundary() to reset the error boundary and retry the render.
+
+  return (
+    <div role='alert'>
+      <p>Something went wrong:</p>
+      <pre style={{ color: "red" }}>{error.message}</pre>
+    </div>
+  );
+}
 
 const InputIGN = () => {
   const { query, push } = useRouter();
@@ -38,28 +52,35 @@ const InputIGN = () => {
       });
   };
   return (
-    <form
-      className='flex flex-col items-center gap-y-[32px]'
-      onSubmit={() => handleSubmit()}
+    <ErrorBoundary
+      FallbackComponent={Fallback}
+      onReset={(details) => {
+        // Reset the state of your app so the error doesn't happen again
+      }}
     >
-      <input
-        type='text'
-        placeholder='Input IGN'
-        onChange={(e) => handleInputChange(e)}
-        name='IGN'
-        required
-        className='bg-transparent w-full text-center text-white text-[0.87] font-[700] px-[12px] py-[12px] border-[1px] border-red rounded-[5px]'
-      />
-
-      <Button
-        placeholder='Sponsor Tournament'
-        ripple={true}
-        disabled={isLoading}
-        className='text-white text-[0.875rem] bg-red w-[170px] h-[40px] rounded-[5px]'
+      <form
+        className='flex flex-col items-center gap-y-[32px]'
+        onSubmit={() => handleSubmit()}
       >
-        {isLoading ? "Submiting..." : "Continue"}
-      </Button>
-    </form>
+        <input
+          type='text'
+          placeholder='Input IGN'
+          onChange={(e) => handleInputChange(e)}
+          name='IGN'
+          required
+          className='bg-transparent w-full text-center text-white text-[0.87] font-[700] px-[12px] py-[12px] border-[1px] border-red rounded-[5px]'
+        />
+
+        <Button
+          placeholder='Sponsor Tournament'
+          ripple={true}
+          disabled={isLoading}
+          className='text-white text-[0.875rem] bg-red w-[170px] h-[40px] rounded-[5px]'
+        >
+          {isLoading ? "Submiting..." : "Continue"}
+        </Button>
+      </form>
+    </ErrorBoundary>
   );
 };
 

@@ -2,7 +2,7 @@
 import React, { FC } from "react";
 import Image from "next/image";
 import { Button } from "@material-tailwind/react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import moment from "moment";
 
 interface IProps {
