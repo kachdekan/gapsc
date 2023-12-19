@@ -252,7 +252,7 @@ export const transferCUSD = async ({
   });
     try {
         // Request user permission to interact with their wallet (MetaMask)
-        await window.ethereum.enable();
+        // await window.ethereum.enable();
 
         // Create a transaction object
         const transaction = {
