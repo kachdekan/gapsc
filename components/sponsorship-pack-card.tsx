@@ -3,12 +3,22 @@ import { useRouter } from "next/router";
 import { Button } from "@material-tailwind/react";
 import { transferCUSD } from "@/utils/transactions";
 import { useAccount } from "wagmi";
+import { useSponsorTournamentMutation } from "@/redux/services/sponsor-tournament";
 
 interface IProps {
   tier: string;
   title: string;
-  perks: string[];
+  perks: {
+    id: number;
+    tournament_package_id: number;
+    description: string;
+    created_at: string;
+    updated_at: string;
+  }[];
   sponsorshipAmount: string;
+  tournament_id: string;
+  sponsor_id: string;
+  tournament_package_id: string;
 }
 
 const SponsorshipPackCard: FC<IProps> = ({
@@ -16,11 +26,17 @@ const SponsorshipPackCard: FC<IProps> = ({
   title,
   perks,
   sponsorshipAmount,
+  tournament_id,
+  sponsor_id,
+  tournament_package_id,
 }) => {
   const { back } = useRouter();
 
   // Holds User Address accessed from wagmi
   const [userAddress, setUserAddress] = useState<string>("");
+
+  // Sponsoring Button Indicator
+  const [isSponsoring, setIsSponsoring] = useState<boolean>(false);
 
   // Get Wallet address and Connected status
   const { address, isConnected } = useAccount();
@@ -32,11 +48,28 @@ const SponsorshipPackCard: FC<IProps> = ({
     }
   }, [address, isConnected]);
 
+  // API Mutation for sponsoring Tournament
+  const [sponsorTournament, { data, isSuccess, isError }] =
+    useSponsorTournamentMutation();
+
   // Handle Sponsor Tournament
   const handleSponsorTournament = async () => {
+    setIsSponsoring(true);
     await transferCUSD({ userAddress: userAddress })
       .then(() => {
-        back();
+        sponsorTournament({
+          tournament_id: tournament_id,
+          sponsor_id: sponsor_id,
+          tournament_package_id: tournament_package_id,
+        })
+          .then(() => {
+             setIsSponsoring(false);
+            back();
+          })
+          .catch((err: any) => {
+             setIsSponsoring(false);
+            alert(`${err}`);
+          });
       })
       .catch((err) => {
         alert(`ERROR: ${err}`);
@@ -76,7 +109,9 @@ const SponsorshipPackCard: FC<IProps> = ({
                 </svg>
               </span>
               {/* perk */}
-              <p className='text-white text-[0.6rem] font-[400]'>{perk}</p>
+              <p className='text-white text-[0.6rem] font-[400]'>
+                {perk?.description}
+              </p>
             </div>
           ))}
         </div>
@@ -93,9 +128,11 @@ const SponsorshipPackCard: FC<IProps> = ({
             placeholder='More'
             ripple={true}
             onClick={() => handleSponsorTournament()}
+            disabled={isSponsoring}
+            is
             className='text-white text-[0.87rem] bg-green w-[170px] h-[40px] flex items-center justify-center text-center rounded-[5px]'
           >
-            Sponsor
+            {isSponsoring ? "Sponsoring..." : "Sponsor"}
           </Button>
         </div>
       </div>

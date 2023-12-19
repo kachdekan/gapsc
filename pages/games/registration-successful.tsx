@@ -8,7 +8,7 @@ const RegistrationSuccessful = () => {
       <h5 className="text-white text-base font-[600]">Player Registration Successful</h5>
       {/* Got to Main App */}
       <Button
-        placeholder='Sponsor Tournament'
+        placeholder=''
         ripple={true}
         className='text-red text-[0.875rem] font-[700] bg-[#FDF0D5] w-full h-[40px] rounded-[5px]'
       >

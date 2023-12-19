@@ -37,6 +37,7 @@ export const getAllAccountsApiSlice = baseApiSlice.injectEndpoints({
           "Content-Type": "application/json",
         },
       }),
+      providesTags: ["TOURNAMENT"],
     }),
   }),
 });

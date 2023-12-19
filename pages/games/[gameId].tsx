@@ -149,7 +149,8 @@ const Game = () => {
                 </div>
 
                 {/* Join Tournament Button */}
-                {data?.data?.tournaments?.[0]?.is_funded === 1 ? (
+                {data?.data?.tournaments?.[0]?.sponsor_target ===
+                data?.data?.tournaments?.[0]?.total_sponsor_amount ? (
                   <Button
                     placeholder='Join Tournament'
                     ripple={true}
@@ -164,11 +165,14 @@ const Game = () => {
                 ) : null}
 
                 {/* Sponsor Tournament Button */}
-                {/* {isConnected ? ( */}
                 <Button
                   placeholder='Sponsor Tournament'
                   ripple={true}
-                  onClick={() => push("/games/sponsorship")}
+                  onClick={() =>
+                    push(
+                      `/games/sponsorship?tournamentId=${data?.data?.tournaments?.[0]?.id}`
+                    )
+                  }
                   className='text-white text-[0.875rem] bg-green w-full h-[40px] rounded-[5px]'
                 >
                   Sponsor Tournament

@@ -40,6 +40,7 @@ export const sponsorTournamentApiSlice = baseApiSlice.injectEndpoints({
           "Content-Type": "application/json",
         },
       }),
+      invalidatesTags: ["TOURNAMENT"],
     }),
   }),
 });

@@ -23,7 +23,7 @@ const baseQuery = fetchBaseQuery({
 // This will keep our ApiSlices modular.
 export const baseApiSlice = createApi({
   reducerPath: "baseApi",
-  tagTypes: [],
+  tagTypes: ["TOURNAMENT"],
   baseQuery: baseQuery,
   refetchOnReconnect: true,
   endpoints: () => ({}),

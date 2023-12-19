@@ -1,8 +1,10 @@
-"use client"
+"use client";
 import React from "react";
+import { useRouter } from "next/router";
 import SponsorshipPackCard from "@/components/sponsorship-pack-card";
 
 import { ErrorBoundary } from "react-error-boundary";
+import { useGetTournamentPackagesQuery } from "@/redux/services/get-tournament-packages";
 
 function Fallback({ error, resetErrorBoundary }: any) {
   // Call resetErrorBoundary() to reset the error boundary and retry the render.
@@ -34,40 +36,59 @@ const goldSponsorshipPerks = [
 ];
 
 const SponsorshipPack = () => {
+  const { query, push } = useRouter();
+
+  // Access Tournament Tournament ID query parameters
+  const tournamentId = query.tournament_id;
+
+  // Get Sponsorship Packages
+  const { data, isSuccess, isError } = useGetTournamentPackagesQuery({
+    tournamentId: `${tournamentId}`,
+  });
+
   return (
-        <ErrorBoundary
+    <ErrorBoundary
       FallbackComponent={Fallback}
       onReset={(details) => {
         // Reset the state of your app so the error doesn't happen again
       }}
     >
-    <div className='w-full flex flex-col items-center gap-y-[32px] pt-[80px] pb-[40px]'>
-      <h5 className='text-white text-base font-[600]'>Choose a Subscription</h5>
-      {/* Sponsorship packs */}
-      <div className='flex flex-col gap-y-[40px]'>
-        {/* Bronze Package */}
-        <SponsorshipPackCard
-          tier='Bronze'
-          title="What You'll Get"
-          perks={bronzeSponsorshipPerks}
-          sponsorshipAmount="100"
-        />
-        {/* Silver Package */}
-        <SponsorshipPackCard
-          tier='Silver'
-          title="What You'll Get"
-          perks={silverSponsorshipPerks}
-          sponsorshipAmount="300"
-        />
-        {/* Gold Package */}
-        <SponsorshipPackCard
-          tier='Gold'
-          title="What You'll Get"
-          perks={goldSponsorshipPerks}
-          sponsorshipAmount="500"
-        />
+      <div className='w-full flex flex-col items-center gap-y-[32px] pt-[80px] pb-[40px]'>
+        <h5 className='text-white text-base font-[600]'>
+          Choose a Subscription
+        </h5>
+        {/* Sponsorship packs */}
+        <div className='flex flex-col gap-y-[40px]'>
+          {data?.data?.packages?.map((package, idx) => (
+            <SponsorshipPackCard
+              key={idx}
+              tournament_id={package?.tournament_id}
+              sponsor_id='1' // FOR NOW
+              tournament_package_id={
+                package?.package_details?.[idx]?.tournament_package_id
+              }
+              tier={`${package?.name}`}
+              title="What You'll Get"
+              perks={package?.package_details}
+              sponsorshipAmount={`${package?.amount}`}
+            />
+          ))}
+          {/* Silver Package */}
+          {/* <SponsorshipPackCard
+            tier='Silver'
+            title="What You'll Get"
+            perks={silverSponsorshipPerks}
+            sponsorshipAmount='300'
+          /> */}
+          {/* Gold Package */}
+          {/* <SponsorshipPackCard
+            tier='Gold'
+            title="What You'll Get"
+            perks={goldSponsorshipPerks}
+            sponsorshipAmount='500'
+          /> */}
+        </div>
       </div>
-    </div>
     </ErrorBoundary>
   );
 };

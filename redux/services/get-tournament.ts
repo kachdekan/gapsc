@@ -69,6 +69,7 @@ export const getSingleTournamentApiSlice = baseApiSlice.injectEndpoints({
           "Content-Type": "application/json",
         },
       }),
+      providesTags: ["TOURNAMENT"],
     }),
   }),
 });

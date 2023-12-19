@@ -240,12 +240,6 @@ export const transferCUSD = async ({
       typeof window !== undefined ? window.ethereum : undefined
     );
 
-    // Ensure the recipient address is a valid Ethereum address
-    if (!ethers.utils.isAddress(recipientAddress)) {
-        alert('Invalid recipient address. Please enter a valid Ethereum address.');
-        return;
-    }
-
     // Get the signer from the provider
         const signer = await provider
   .getSigner(userAddress)
@@ -275,7 +269,7 @@ export const transferCUSD = async ({
         console.log('Transaction hash:', receipt.transactionHash);
         console.log('Transaction confirmed in block:', receipt.blockNumber);
 
-        alert(`Successfully sent ${ethers.utils.formatEther(amount)} Ether to ${recipientAddress}`);
+        alert(`Successfully sent cUSD to ${recipientAddress}`);
     } catch (error: any) {
         console.error('Error sending Ether:', error?.message);
         alert('Error sending Ether. Please check the console for details.');
