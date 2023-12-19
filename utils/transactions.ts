@@ -229,52 +229,40 @@ const ADDRESS = "0x48fCA0f8Fc7522Fb526C8a2a39EEb94D73f30f36";
 //   }
 // };
 
-export const transferCUSD = async ({
-  userAddress,
-}: Props) => {
-    const recipientAddress = ADDRESS;
-    const amount = parseEther("0.1");
+export const transferCUSD = async ({ userAddress }: Props) => {
+  const recipientAddress = ADDRESS;
+  const amount = parseEther("0.1");
 
-        // Get Connected accounts, if not connected request connection.
-    const provider = new BrowserProvider(
-      window.ethereum
-    );
+  // Get Connected accounts, if not connected request connection.
+  const provider = new BrowserProvider(window.ethereum);
 
-    // Get the signer from the provider
-        const signer = await provider
-  .getSigner(userAddress)
-  .then((response: any) => {
-    return response;
-  })
-  .catch((error: any) => {
-    console.log("signer", error);
-    return error;
-  });
-    try {
-        // Request user permission to interact with their wallet (MetaMask)
-        // await window.ethereum.enable();
+  // Get the signer from the provider
+  try {
+    const signer = await provider.getSigner(userAddress);
+    // Request user permission to interact with their wallet (MetaMask)
+    // await window.ethereum.enable();
 
-        // Create a transaction object
-        const transaction = {
-            to: recipientAddress,
-            value: amount,
-        };
+    // Create a transaction object
+    const transaction = {
+      to: recipientAddress,
+      value: amount,
+    };
 
-        // Sign and send the transaction
-        const transactionResponse = await signer.sendTransaction(transaction);
+    // Sign and send the transaction
+    const transactionResponse = await signer.sendTransaction(transaction);
 
-        // Wait for the transaction to be mined
-        const receipt = await transactionResponse.wait();
+    // Wait for the transaction to be mined
+    const receipt = await transactionResponse.wait();
 
-        console.log('Transaction hash:', receipt.transactionHash);
-        console.log('Transaction confirmed in block:', receipt.blockNumber);
+    console.log("Transaction hash:", receipt.transactionHash);
+    console.log("Transaction confirmed in block:", receipt.blockNumber);
 
-        alert(`Successfully sent cUSD to ${recipientAddress}`);
-    } catch (error: any) {
-        console.error('Error sending Ether:', error?.message);
-        alert('Error sending Ether. Please check the console for details.');
-    }
-}
+    alert(`Successfully sent cUSD to ${recipientAddress}`);
+  } catch (error: any) {
+    console.error("Error sending Ether:", error?.message);
+    alert("Error sending Ether. Please check the console for details.");
+  }
+};
 
 declare global {
   interface Window {
