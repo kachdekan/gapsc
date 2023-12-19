@@ -115,7 +115,7 @@ const Game = () => {
                     `${data?.data?.tournaments?.[0]?.sponsor_target}/${data?.data?.tournaments?.[0]?.total_sponsor_amount}`}
 
                   {/* When Amount put In equals total sponsor amount */}
-                  {!data?.data?.tournaments?.[0]?.sponsor_target ===
+                  {data?.data?.tournaments?.[0]?.sponsor_target ===
                     data?.data?.tournaments?.[0]?.total_sponsor_amount &&
                     fundedStatus.funded}
                 </div>
