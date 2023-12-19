@@ -39,7 +39,7 @@ const SponsorshipPack = () => {
   const { query, push } = useRouter();
 
   // Access Tournament Tournament ID query parameters
-  const tournamentId = query.tournament_id;
+  const tournamentId = query.tournamentId;
 
   // Get Sponsorship Packages
   const { data, isSuccess, isError } = useGetTournamentPackagesQuery({
