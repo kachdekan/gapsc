@@ -168,7 +168,7 @@ const Game = () => {
                 <Button
                   placeholder='Sponsor Tournament'
                   ripple={true}
-                  onClick={() => push("games/sponsorship")}
+                  onClick={() => push("/games/sponsorship")}
                   className='text-white text-[0.875rem] bg-green w-full h-[40px] rounded-[5px]'
                 >
                   Sponsor Tournament
