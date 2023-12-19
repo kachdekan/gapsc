@@ -5,7 +5,6 @@ import GAPLogoFilled from "@/public/GAP-logo-filled.png";
 import { Button } from "@material-tailwind/react";
 import { useGetSingleTournamentQuery } from "@/redux/services/get-tournament";
 import { useAccount } from "wagmi";
-import { transferCUSD } from "@/utils/transactions";
 import BackIcon from "@/components/Back-icon";
 
 import { ErrorBoundary } from "react-error-boundary";
@@ -62,13 +61,7 @@ const Game = () => {
   }, [address, isConnected]);
 
   const handleJoinTournament = async () => {
-    await transferCUSD({ userAddress: userAddress })
-      .then(() => {
-        push(`/games/input-IGN?tournament_id=${gameId}&player_id=${playerId}`);
-      })
-      .catch(() => {
-        alert("Error");
-      });
+    push(`/games/input-IGN?tournament_id=${gameId}&player_id=${playerId}`);
   };
 
   return (

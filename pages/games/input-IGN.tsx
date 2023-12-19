@@ -1,10 +1,12 @@
-"use client"
-import React, { ChangeEvent, useState } from "react";
+"use client";
+import React, { ChangeEvent, useState, useEffect } from "react";
 import { useJoinTournamentMutation } from "@/redux/services/join-tournament";
 import { Button } from "@material-tailwind/react";
 import { useRouter } from "next/router";
 
 import { ErrorBoundary } from "react-error-boundary";
+import { transferCUSD } from "@/utils/transactions";
+import { useAccount } from "wagmi";
 
 function Fallback({ error, resetErrorBoundary }: any) {
   // Call resetErrorBoundary() to reset the error boundary and retry the render.
@@ -32,23 +34,42 @@ const InputIGN = () => {
   // Access Player Id
   const playerId = query.player_id;
 
+  // Holds User Address accessed from wagmi
+  const [userAddress, setUserAddress] = useState<string>("");
+
+  // Get Wallet address and Connected status
+  const { address, isConnected } = useAccount();
+
+  // Get User Address When wallet is connected
+  useEffect(() => {
+    if (isConnected && address) {
+      setUserAddress(address!);
+    }
+  }, [address, isConnected]);
+
   // Join Tournament API mutation
   const [joinTournament, { data, isLoading, isError }] =
     useJoinTournamentMutation();
 
   // Subbmit Form
-  const handleSubmit = () => {
-    joinTournament({
-      tournament_id: `${tournamentId}`,
-      player_id: `${playerId}`,
-      ign: `${IGN}`,
-    })
-      .unwrap()
+  const handleSubmit = async () => {
+    await transferCUSD({ userAddress: userAddress })
       .then(() => {
-        push(`/games/registration-successful`);
+        joinTournament({
+          tournament_id: `${tournamentId}`,
+          player_id: `${playerId}`,
+          ign: `${IGN}`,
+        })
+          .unwrap()
+          .then(() => {
+            push(`/games/registration-successful`);
+          })
+          .catch((err: any) => {
+            alert(err ?? "Error Getting you In!");
+          });
       })
-      .catch((err) => {
-        alert(err ?? "Error Getting you In!");
+      .catch((err: any) => {
+        alert(`ERROR: ${err}`);
       });
   };
   return (
