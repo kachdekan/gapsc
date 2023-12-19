@@ -62,14 +62,12 @@ const SponsorshipPack = () => {
           {data?.data?.packages?.map((_package, idx) => (
             <SponsorshipPackCard
               key={idx}
-              tournament_id={_package?.tournament_id}
+              tournament_id={`${_package?.tournament_id}`}
               sponsor_id='1' // FOR NOW
-              tournament_package_id={
-                _package?.package_details?.[idx]?.tournament_package_id
-              }
+              tournament_package_id={`${_package?.package_details?.[idx]?.tournament_package_id}`}
               tier={`${_package?.name}`}
               title="What You'll Get"
-              perks={_package?.package_details}
+              perks={`${_package?.package_details}`}
               sponsorshipAmount={`${_package?.amount}`}
             />
           ))}
