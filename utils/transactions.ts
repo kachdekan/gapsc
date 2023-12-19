@@ -231,7 +231,7 @@ const ADDRESS = "0x48fCA0f8Fc7522Fb526C8a2a39EEb94D73f30f36";
 
 export const transferCUSD = async ({
   userAddress,
-}: Props) {
+}: Props) => {
     const recipientAddress = ADDRESS;
     const amount = parseEther("0.1");
 
