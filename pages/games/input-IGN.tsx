@@ -95,6 +95,7 @@ const InputIGN = () => {
         <Button
           placeholder='Sponsor Tournament'
           ripple={true}
+          type="submit"
           disabled={isLoading}
           className='text-white text-[0.875rem] bg-red w-[170px] h-[40px] rounded-[5px]'
         >
