@@ -28,8 +28,8 @@ enum fundedStatus {
 
 const SponsorLogos = [
   "/epic-games-logo.png",
-  "/steam-logo.png",
-  "/convexity-logo.png",
+  // "/steam-logo.png",
+  // "/convexity-logo.png",
 ];
 
 const Game = () => {

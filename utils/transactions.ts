@@ -193,47 +193,23 @@ const abi = [
 ];
 
 interface Props {
-  address?: string;
   userAddress: string;
 }
 
-export const transferCUSD = async ({
-  address = GAP_CONTRACT_ADDRESS,
-  userAddress,
-}: Props) => {
-  if (
-    typeof window !== undefined
-      ? window.ethereum && window.ethereum.isMiniPay
-      : undefined
-  ) {
-    // Get Connected accounts, if not connected request connection.
-    const provider = new BrowserProvider(
-      typeof window !== undefined ? window.ethereum : undefined
-    );
-    const signer = await provider
-      .getSigner(userAddress)
-      .then((response) => {
-        return response;
-      })
-      .catch((error) => {
-        console.log("signer", error);
-        return error;
-      });
+const ADDRESS = "0x48fCA0f8Fc7522Fb526C8a2a39EEb94D73f30f36";,
 
-    // Retrieve the contract interface from the deployed contract address
-    const CUSDContract = new Contract(GAP_CONTRACT_ADDRESS, abi, signer);
-    let txn = await CUSDContract.transfer({
-      to: address,
-      value: parseEther("0.1"),
-    });
-    let receipt = await txn.wait();
-  }
-};
-
-// export const transferCUSD = async (userAddress: string, amount: string) => {
-//   if (window.ethereum) {
-//     console.log(parseEther(amount));
-//     const provider = new BrowserProvider(window.ethereum);
+// export const transferCUSD = async ({
+//   userAddress,
+// }: Props) => {
+//   if (
+//     typeof window !== undefined
+//       ? window.ethereum && window.ethereum.isMiniPay
+//       : undefined
+//   ) {
+//     // Get Connected accounts, if not connected request connection.
+//     const provider = new BrowserProvider(
+//       typeof window !== undefined ? window.ethereum : undefined
+//     );
 //     const signer = await provider
 //       .getSigner(userAddress)
 //       .then((response) => {
@@ -244,23 +220,67 @@ export const transferCUSD = async ({
 //         return error;
 //       });
 
-//     let abi = ["function transfer(address to, uint256 value)"];
-
-//     let CUSDContract = new Contract(CUSD_ADDRESS, abi, signer);
-//     let txn = await CUSDContract.transfer(
-//       process.env.NEXT_PUBLIC_MW,
-//       parseEther(amount)
-//     )
-//       .then((response) => {
-//         return response;
-//       })
-//       .catch((error) => {
-//         return error;
-//       });
-//     let receipt = await txn;
-//     return receipt;
+//     // Retrieve the contract interface from the deployed contract address
+//     const CUSDContract = new Contract(GAP_CONTRACT_ADDRESS, abi, signer);
+//     let txn = await CUSDContract.register({
+//       value: parseEther("0.1"),
+//     });
+//     let receipt = await txn.wait();
 //   }
 // };
+
+export const transferCUSD = async ({
+  userAddress,
+}: Props) {
+    const recipientAddress = ADDRESS;
+    const amount = parseEther("0.1");
+
+        // Get Connected accounts, if not connected request connection.
+    const provider = new BrowserProvider(
+      typeof window !== undefined ? window.ethereum : undefined
+    );
+
+    // Ensure the recipient address is a valid Ethereum address
+    if (!ethers.utils.isAddress(recipientAddress)) {
+        alert('Invalid recipient address. Please enter a valid Ethereum address.');
+        return;
+    }
+
+    // Get the signer from the provider
+        const signer = await provider
+  .getSigner(userAddress)
+  .then((response: any) => {
+    return response;
+  })
+  .catch((error: any) => {
+    console.log("signer", error);
+    return error;
+  });
+    try {
+        // Request user permission to interact with their wallet (MetaMask)
+        await window.ethereum.enable();
+
+        // Create a transaction object
+        const transaction = {
+            to: recipientAddress,
+            value: amount,
+        };
+
+        // Sign and send the transaction
+        const transactionResponse = await signer.sendTransaction(transaction);
+
+        // Wait for the transaction to be mined
+        const receipt = await transactionResponse.wait();
+
+        console.log('Transaction hash:', receipt.transactionHash);
+        console.log('Transaction confirmed in block:', receipt.blockNumber);
+
+        alert(`Successfully sent ${ethers.utils.formatEther(amount)} Ether to ${recipientAddress}`);
+    } catch (error: any) {
+        console.error('Error sending Ether:', error?.message);
+        alert('Error sending Ether. Please check the console for details.');
+    }
+}
 
 declare global {
   interface Window {

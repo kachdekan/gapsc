@@ -86,7 +86,7 @@ const SponsorshipPackCard: FC<IProps> = ({
         {/* Payout */}
         <div className='flex flex-col items-center justify-start gap-[14px]'>
           <div className='text-white text-[1.3rem] self-start text-left font-[700]'>
-            ${sponsorshipAmount}
+            cUSD{sponsorshipAmount}
           </div>
           {/* More Button */}
           <Button
