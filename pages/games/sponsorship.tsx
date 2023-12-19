@@ -59,18 +59,18 @@ const SponsorshipPack = () => {
         </h5>
         {/* Sponsorship packs */}
         <div className='flex flex-col gap-y-[40px]'>
-          {data?.data?.packages?.map((package, idx) => (
+          {data?.data?.packages?.map((_package, idx) => (
             <SponsorshipPackCard
               key={idx}
-              tournament_id={package?.tournament_id}
+              tournament_id={_package?.tournament_id}
               sponsor_id='1' // FOR NOW
               tournament_package_id={
-                package?.package_details?.[idx]?.tournament_package_id
+                _package?.package_details?.[idx]?.tournament_package_id
               }
-              tier={`${package?.name}`}
+              tier={`${_package?.name}`}
               title="What You'll Get"
-              perks={package?.package_details}
-              sponsorshipAmount={`${package?.amount}`}
+              perks={_package?.package_details}
+              sponsorshipAmount={`${_package?.amount}`}
             />
           ))}
           {/* Silver Package */}
