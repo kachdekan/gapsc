@@ -67,7 +67,7 @@ const SponsorshipPack = () => {
               tournament_package_id={`${_package?.package_details?.[idx]?.tournament_package_id}`}
               tier={`${_package?.name}`}
               title="What You'll Get"
-              perks={`${_package?.package_details}`}
+              perks={_package?.package_details}
               sponsorshipAmount={`${_package?.amount}`}
             />
           ))}
