@@ -2,6 +2,7 @@ import React, { FC, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Button } from "@material-tailwind/react";
 import { transferCUSD } from "@/utils/transactions";
+import { useAccount } from "wagmi";
 
 interface IProps {
   tier: string;

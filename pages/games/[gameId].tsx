@@ -7,7 +7,6 @@ import { useGetSingleTournamentQuery } from "@/redux/services/get-tournament";
 import { useAccount } from "wagmi";
 import { transferCUSD } from "@/utils/transactions";
 import BackIcon from "@/components/Back-icon";
-import { useAccount } from "wagmi";
 
 import { ErrorBoundary } from "react-error-boundary";
 
