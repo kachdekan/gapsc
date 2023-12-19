@@ -1,5 +1,7 @@
+import React, { FC, useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import { Button } from "@material-tailwind/react";
-import React, { FC } from "react";
+import { transferCUSD } from "@/utils/transactions";
 
 interface IProps {
   tier: string;
@@ -14,6 +16,32 @@ const SponsorshipPackCard: FC<IProps> = ({
   perks,
   sponsorshipAmount,
 }) => {
+  const { back } = useRouter();
+
+  // Holds User Address accessed from wagmi
+  const [userAddress, setUserAddress] = useState<string>("");
+
+  // Get Wallet address and Connected status
+  const { address, isConnected } = useAccount();
+
+  // Get User Address When wallet is connected
+  useEffect(() => {
+    if (isConnected && address) {
+      setUserAddress(address!);
+    }
+  }, [address, isConnected]);
+
+  // Handle Sponsor Tournament
+  const handleSponsorTournament = async () => {
+    await transferCUSD({ userAddress: userAddress })
+      .then(() => {
+        back();
+      })
+      .catch((err) => {
+        alert(`ERROR: ${err}`);
+      });
+  };
+
   return (
     <div className='w-[280px] h-[390px] bg-black px-[23px] space-y-[12px] py-[21px] rounded-[25px] shadow-[0px_4px_50px_20px_rgba(0,182,85,0.15)]'>
       {/* Tier */}
@@ -63,7 +91,7 @@ const SponsorshipPackCard: FC<IProps> = ({
           <Button
             placeholder='More'
             ripple={true}
-            // onClick={() => {push("/games/2")}}
+            onClick={() => handleSponsorTournament()}
             className='text-white text-[0.87rem] bg-green w-[170px] h-[40px] flex items-center justify-center text-center rounded-[5px]'
           >
             Sponsor

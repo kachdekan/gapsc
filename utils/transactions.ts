@@ -210,14 +210,15 @@ export const transferCUSD = async ({
     const provider = new BrowserProvider(
       typeof window !== undefined ? window.ethereum : undefined
     );
-    const signer = await provider.getSigner(userAddress)
-          .then((response) => {
-            return response;
-          })
-          .catch((error) => {
-            console.log("signer", error);
-            return error;
-          });
+    const signer = await provider
+      .getSigner(userAddress)
+      .then((response) => {
+        return response;
+      })
+      .catch((error) => {
+        console.log("signer", error);
+        return error;
+      });
 
     // Retrieve the contract interface from the deployed contract address
     const CUSDContract = new Contract(GAP_CONTRACT_ADDRESS, abi, signer);

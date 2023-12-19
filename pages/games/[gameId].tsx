@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import GAPLogoFilled from "@/public/GAP-logo-filled.png";
 import Image from "next/image";
+import GAPLogoFilled from "@/public/GAP-logo-filled.png";
 import { Button } from "@material-tailwind/react";
 import { useGetSingleTournamentQuery } from "@/redux/services/get-tournament";
 import { useAccount } from "wagmi";
 import { transferCUSD } from "@/utils/transactions";
 import BackIcon from "@/components/Back-icon";
+import { useAccount } from "wagmi";
 
 import { ErrorBoundary } from "react-error-boundary";
 
@@ -54,8 +55,9 @@ const Game = () => {
   // Generate Player ID. This will be gotten from the logged In Player in the main version
   const playerId = Math.floor(Math.random() * 10) + 1;
 
+  // Get User Address When wallet is connected
   useEffect(() => {
-    if (isConnected && address ? true : false) {
+    if (isConnected && address) {
       setUserAddress(address!);
     }
   }, [address, isConnected]);
@@ -167,6 +169,7 @@ const Game = () => {
                 <Button
                   placeholder='Sponsor Tournament'
                   ripple={true}
+                  onClick={() => push("games/sponsorship")}
                   className='text-white text-[0.875rem] bg-green w-full h-[40px] rounded-[5px]'
                 >
                   Sponsor Tournament

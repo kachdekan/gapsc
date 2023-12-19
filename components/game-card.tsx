@@ -63,7 +63,7 @@ const GameCard: FC<IProps> = ({
           </h3>
           <p className='font-sans font-[400] text-[0.5rem] text-white'>
             {moment(start_date).format("Do MMMM YYYY")}
-            {`${!!end_date ? moment(end_date).format("Do MMMM YYYY"): null}`}
+            {` - ${!!end_date ? moment(end_date).format("Do MMMM YYYY"): null}`}
           </p>
         </div>
 
