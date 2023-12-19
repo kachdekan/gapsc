@@ -169,7 +169,8 @@ const Game = () => {
                     }}
                     className='text-white text-[0.875rem] bg-red w-full h-[40px] rounded-[5px]'
                   >
-                    Join for {data?.data?.tournaments?.[0]?.currency_symbol}
+                    {/* Join for {data?.data?.tournaments?.[0]?.currency_symbol} */}
+                    cUSD
                     {data?.data?.tournaments?.[0]?.entry_fee}
                   </Button>
                 ) : null}
