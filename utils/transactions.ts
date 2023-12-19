@@ -254,12 +254,12 @@ export const transferCUSD = async ({ userAddress }: Props) => {
     // Wait for the transaction to be mined
     const receipt = await transactionResponse.wait();
 
-    console.log("Transaction hash:", receipt?.transactionHash);
-    console.log("Transaction confirmed in block:", receipt?.blockNumber);
+    //console.log("Transaction hash:", receipt?.transactionHash);
+    //console.log("Transaction confirmed in block:", receipt?.blockNumber);
 
     alert(`Successfully sent cUSD to ${recipientAddress}`);
   } catch (error: any) {
-    console.error("Error sending Ether:", error?.message);
+    console.error("Error sending Ether:", error);
     alert("Error sending Ether. Please check the console for details.");
   }
 };
