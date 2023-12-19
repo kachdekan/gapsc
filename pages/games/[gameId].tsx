@@ -27,9 +27,9 @@ enum fundedStatus {
 }
 
 const SponsorLogos = [
-  "/epic-games-logo.png",
+  // "/epic-games-logo.png",
   // "/steam-logo.png",
-  // "/convexity-logo.png",
+  "/convexity-logo.png",
 ];
 
 const Game = () => {
@@ -105,9 +105,19 @@ const Game = () => {
                 </div>
                 {/* Tournament Funded status*/}
                 <div className='text-white font-sans font-[800] text-[0.55rem] whitespace-nowrap'>
-                  {data?.data?.tournaments?.[0]?.is_funded === 0
-                    ? fundedStatus.notFunded
-                    : fundedStatus.funded}
+                  {/* When Amount put In is not equal to total sponsor amount */}
+                  {!data?.data?.tournaments?.[0]?.sponsor_target &&
+                    fundedStatus.notFunded}
+
+                  {/* When Current funds doesn't Equal Expected Payout */}
+                  {data?.data?.tournaments?.[0]?.sponsor_target !==
+                    data?.data?.tournaments?.[0]?.total_sponsor_amount &&
+                    `${data?.data?.tournaments?.[0]?.sponsor_target}/${data?.data?.tournaments?.[0]?.total_sponsor_amount}`}
+
+                  {/* When Amount put In equals total sponsor amount */}
+                  {!data?.data?.tournaments?.[0]?.sponsor_target ===
+                    data?.data?.tournaments?.[0]?.total_sponsor_amount &&
+                    fundedStatus.funded}
                 </div>
               </div>
 
