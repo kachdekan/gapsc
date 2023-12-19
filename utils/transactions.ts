@@ -249,13 +249,13 @@ export const transferCUSD = async ({ userAddress }: Props) => {
     };
 
     // Sign and send the transaction
-    const transactionResponse = await signer.sendTransaction(transaction);
+    const transactionResponse = await signer?.sendTransaction(transaction);
 
     // Wait for the transaction to be mined
     const receipt = await transactionResponse.wait();
 
-    console.log("Transaction hash:", receipt.transactionHash);
-    console.log("Transaction confirmed in block:", receipt.blockNumber);
+    console.log("Transaction hash:", receipt?.transactionHash);
+    console.log("Transaction confirmed in block:", receipt?.blockNumber);
 
     alert(`Successfully sent cUSD to ${recipientAddress}`);
   } catch (error: any) {
